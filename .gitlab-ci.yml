@@ -1,0 +1,7 @@
+before_script:
+  - ruby -v
+  - which ruby
+  - bundle install --without postgres production
+  - bundle exec rake db:test:prepare
+specs:
+  script: SIMPLECOV=true RAILS_ENV=test rspec
