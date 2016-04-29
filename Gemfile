@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 gem 'pg'
@@ -46,6 +45,7 @@ group :development, :test do
   gem 'guard'
   gem 'guard-bundler'
   gem 'guard-rspec'
+  gem 'guard-rubocop'
   gem 'rspec-rails'
   gem 'simplecov'
   gem 'factory_girl_rails'
