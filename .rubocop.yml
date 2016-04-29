@@ -12,11 +12,7 @@ Metrics/LineLength:
   Max: 130
 
 Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'app/controllers/application_controller.rb'
-    - 'app/helpers/application_helper.rb'
-    - 'config/application.rb'
+  Enabled: false
 
 Style/StringLiterals:
   Enabled: false
