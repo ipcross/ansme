@@ -39,6 +39,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem "codeclimate-test-reporter"
 end
 
 group :development, :test do

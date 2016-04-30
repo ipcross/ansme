@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+  - 2.3.0
+env:
+  - DB=postgresql
+addons:
+  code_climate:
+    repo_token: 83d972c67b5114b1bb61b8df42d703514616bdc6fd9640feb99cd03372a3b100
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake
+before_script:
+  - cp config/database.yml.example config/database.yml
+  - mysql -e 'create database db_test'
+  - psql -c 'create database db_test' -U postgres
