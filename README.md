@@ -1,5 +1,5 @@
 
-ansme [![Code Climate](https://codeclimate.com/github/ipcross/ansme/badges/gpa.svg)](https://codeclimate.com/github/ipcross/ansme) [![Build Status](https://travis-ci.org/ipcross/ansme.svg?branch=master)](https://travis-ci.org/ipcross/ansme)
+ansme [![Code Climate](https://codeclimate.com/github/ipcross/ansme/badges/gpa.svg)](https://codeclimate.com/github/ipcross/ansme) [![Build Status](https://travis-ci.org/ipcross/ansme.svg?branch=master)](https://travis-ci.org/ipcross/ansme) [![Test Coverage](https://codeclimate.com/github/ipcross/ansme/badges/coverage.svg)](https://codeclimate.com/github/ipcross/ansme/coverage)
 =========
 
 A question and answer service similar to [StackOverflow](http://stackoverflow.com/)
