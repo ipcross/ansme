@@ -3,7 +3,7 @@ AllCops:
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'
     - 'tmp/**/*'
-    - 'db/*.rb'
+    - 'db/**/*'
     - 'bin/**/*'
   DisplayCopNames: true
   StyleGuideCopsOnly: false
