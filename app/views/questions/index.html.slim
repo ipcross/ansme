@@ -1,1 +1,21 @@
-
+div class='panel panel-info'
+  div class='panel-heading'
+    | List all questions.
+  table.table.table-condensed
+    head
+      tr
+        th
+          | Title
+        th
+          | Body
+        th.actioncell
+    body
+      - @questions.each do |question|
+        tr
+          td
+            = link_to question, question_path(question)
+          td
+            = question.body
+          td.actioncell
+            button.btn.btn-default.btn-sm[type="button"]
+              = link_to 'Edit', edit_question_path(question)
