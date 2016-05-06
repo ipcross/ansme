@@ -6,8 +6,8 @@ feature 'Create question' do
   scenario 'Authenticated user create the question' do
     sign_in(user)
 
-    visit '/questions'
-    click_on 'Ask question'
+    visit root_path
+    click_on 'Ask Question'
     fill_in 'Title', with: 'Test question'
     fill_in 'Text', with: 'text text text'
     click_on 'Create'
@@ -16,9 +16,8 @@ feature 'Create question' do
   end
 
   scenario 'Non-authenticated user try to create question' do
-    visit '/questions'
-    click_on 'Ask question'
+    visit root_path
 
-    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    expect(page).not_to have_link 'Ask Question'
   end
 end

@@ -25,3 +25,6 @@ Style/Documentation:
 
 Style/StringLiterals:
   Enabled: false
+
+Style/AlignHash:
+  Enabled: false
