@@ -48,7 +48,7 @@ A question and answer service similar to [StackOverflow](http://stackoverflow.co
 
 ## Thanks
 
-[Vitaly Kurennov](https://github.com/vkurennov) [Vladimir Dementyev](https://github.com/palkan)  
+[Vitaly Kurennov](https://github.com/vkurennov)  [Vladimir Dementyev](https://github.com/palkan)  
 Thanks to all our [awesome
 contributors](https://github.com/ipcross/ansme/graphs/contributors)
 

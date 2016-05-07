@@ -1,0 +1,24 @@
+div class='panel panel-info'
+  div class='panel-heading'
+    | List all questions.
+  table.table.table-striped.table-bordered.table-condensed
+    head
+      tr
+        th
+          | Title
+        th
+          | Body
+        th.actioncell
+    body
+      - @questions.each do |question|
+        tr
+          td
+            = link_to question, question_path(question)
+          td
+            = question.body
+          td.actioncell
+            - if user_signed_in? && question.user_id == current_user.id
+              button.btn.btn-default.btn-sm[type="button"]
+                = link_to 'Edit', edit_question_path(question)
+              button.btn.btn-default.btn-sm[type="button"]
+                = link_to 'Delete', question_path(question), method: :delete
