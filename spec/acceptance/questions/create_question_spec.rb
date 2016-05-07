@@ -8,10 +8,12 @@ feature 'Create question' do
 
     visit root_path
     click_on 'Ask Question'
-    fill_in 'Title', with: 'Test question'
-    fill_in 'Text', with: 'text text text'
+    fill_in 'Title', with: 'Test title for question'
+    fill_in 'Text', with: 'Bit text for question'
     click_on 'Create'
 
+    expect(page).to have_content 'Test title for question'
+    expect(page).to have_content 'Bit text for question'
     expect(page).to have_content 'Your question successfully created.'
   end
 

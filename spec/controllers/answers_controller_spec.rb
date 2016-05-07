@@ -29,6 +29,11 @@ RSpec.describe AnswersController, type: :controller do
           change(question.answers, :count).by(1)
       end
 
+      it 'save user_id for answer' do
+        post :create, question_id: question, answer: attributes_for(:answer)
+        expect(answer.user_id).to eq(user.id)
+      end
+
       it 'redirect to show question with answers' do
         post :create, question_id: question, answer: attributes_for(:answer)
         expect(response).to redirect_to question_path(question)

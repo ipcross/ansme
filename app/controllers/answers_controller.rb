@@ -1,7 +1,8 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_question, only: [:new, :create, :destroy]
-  before_action :load_answer, :load_owner, only: [:destroy, :show]
+  before_action :load_answer, only: [:destroy, :show]
+  before_action :load_question, only: [:new, :create]
+  before_action :load_owner, only: [:destroy]
 
   def new
     @answer = @question.answers.new
@@ -21,8 +22,9 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+    question = @answer.question
     @answer.destroy
-    redirect_to @question
+    redirect_to question
   end
 
   private
@@ -36,7 +38,7 @@ class AnswersController < ApplicationController
   end
 
   def load_owner
-    return redirect_to @question if @answer.user != current_user
+    redirect_to @answer.question if @answer.user != current_user
   end
 
   def answer_params

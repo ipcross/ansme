@@ -63,6 +63,11 @@ RSpec.describe QuestionsController, type: :controller do
         expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
       end
 
+      it 'save user_id for question' do
+        post :create, question: attributes_for(:question)
+        expect(question.user_id).to eq(user.id)
+      end
+
       it 'redirects to show view' do
         post :create, question: attributes_for(:question)
         expect(response).to redirect_to question_path(assigns(:question))
@@ -107,8 +112,8 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 'does not change question attributes' do
         question.reload
-        expect(question.title).to eq 'MyString'
-        expect(question.body).to eq 'MyText'
+        expect(question.title).to eq 'Question title'
+        expect(question.body).to eq 'Question body'
       end
 
       it 're-renders edit view' do

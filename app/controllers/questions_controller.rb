@@ -12,7 +12,6 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-    @question.user_id = current_user.id
   end
 
   def edit
@@ -50,7 +49,7 @@ class QuestionsController < ApplicationController
   end
 
   def load_owner
-    return redirect_to @question if @question.user != current_user
+    redirect_to @question if @question.user != current_user
   end
 
   def question_params
