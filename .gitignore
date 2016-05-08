@@ -25,4 +25,5 @@ git_stats/
 public/assets/
 public/source_maps/
 *.swp
-
+.byebug_history
+.fuse_hidden*
