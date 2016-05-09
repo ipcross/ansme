@@ -12,9 +12,9 @@ class AnswersController < ApplicationController
   end
 
   def create
-    answer = @question.answers.new(answer_params)
-    answer.user_id = current_user.id
-    answer.save
+    @answer = @question.answers.new(answer_params)
+    @answer.user_id = current_user.id
+    @answer.save
   end
 
   def destroy
