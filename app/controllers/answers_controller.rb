@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_answer, only: [:destroy, :show]
+  before_action :load_answer, only: [:destroy, :show, :update]
   before_action :load_question, only: [:new, :create]
   before_action :load_owner, only: [:destroy]
 
@@ -9,6 +9,14 @@ class AnswersController < ApplicationController
   end
 
   def show
+  end
+
+  def edit
+  end
+
+  def update
+    @answer.update(answer_params)
+    @question = @answer.question
   end
 
   def create

@@ -8,5 +8,6 @@ h3 All answers for this questions
   = render 'answers'
 = form_for [@question, @answer], remote: true do |f|
   = f.label :body, 'Your answer'
-  = f.text_area :body
+  .answer-errors
+  = f.text_area :body, id: 'new-answer-form'
   = f.submit 'Create'

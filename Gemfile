@@ -61,4 +61,5 @@ group :development, :test do
   gem 'simplecov'
   gem 'factory_girl_rails'
   gem 'byebug'
+  gem 'pry-coolline'
 end

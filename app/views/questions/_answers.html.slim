@@ -1,3 +1,11 @@
 - @question.answers.each do |answer|
-  - if answer.id
-    p = link_to answer.body, "/answers/#{answer.id}"
+  - if answer.persisted?
+    div id="answer-#{ answer.id }"
+      p = answer.body
+      - if user_signed_in?
+        p = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id}
+        p
+          = form_for answer, remote: true, html: {id: "edit-answer-#{answer.id}"} do |f|
+            = f.label :body, 'Answer'
+            = f.text_area :body
+            = f.submit 'Save'
