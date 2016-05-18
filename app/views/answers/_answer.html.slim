@@ -11,6 +11,6 @@ tr id="answer-#{ answer.id }"
       button.btn.btn-default.btn-sm[type="button"]
         = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id}
       button.btn.btn-default.btn-sm[type="button"]
-        = link_to 'Delete answer', answer_path(answer), method: :delete
+        = link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
       button.btn.btn-default.btn-sm[type="button"]
         = link_to 'Best', ''

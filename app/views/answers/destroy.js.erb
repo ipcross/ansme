@@ -1,0 +1,9 @@
+<% if @answer.errors.present? %>
+  <% @answer.errors.full_messages.each do |message| %>
+    $('.answer-errors').html('<%= j message %>');
+  <% end %>
+<% else %>
+  <% if @answer.destroyed? %>
+    $('<%= "#answer-#{ @answer.id }" %>').remove();
+  <% end %>
+<% end %>

@@ -59,12 +59,12 @@ RSpec.describe AnswersController, type: :controller do
       before { answer }
 
       it 'delete answer' do
-        expect { delete :destroy, id: answer, question_id: question }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, id: answer, question_id: question, format: :js }.to change(Answer, :count).by(-1)
       end
 
       it 'redirect to index' do
-        delete :destroy, id: answer, question_id: question
-        expect(response).to redirect_to question
+        delete :destroy, id: answer, question_id: question, format: :js
+        expect(response).to render_template :destroy
       end
     end
 
