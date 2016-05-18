@@ -1,4 +1,4 @@
-tr id="answer-#{ answer.id }"
+tr id="answer-#{ answer.id }" class="#{ answer.best ? 'info' : '' }"
   td
     = answer.body
     - if user_signed_in? && answer.user_id == current_user.id
@@ -13,4 +13,4 @@ tr id="answer-#{ answer.id }"
       button.btn.btn-default.btn-sm[type="button"]
         = link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
       button.btn.btn-default.btn-sm[type="button"]
-        = link_to 'Best', ''
+        = link_to 'Best', set_best_answer_path(answer), method: :patch, remote: true

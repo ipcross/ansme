@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   let(:user) { create(:user) }
-  let!(:question) { create(:question, user: user) }
+  let(:user2) { create(:user) }
+  let(:question) { create(:question, user: user) }
   let(:answer) { create(:answer, question: question, user: user) }
 
   describe 'GET #new' do
@@ -105,6 +106,36 @@ RSpec.describe AnswersController, type: :controller do
     it 'render update template' do
       patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
       expect(response).to render_template :update
+    end
+  end
+
+  describe 'PATCH #set_best' do
+    context 'Author of question' do
+      before do
+        sign_in(user)
+      end
+
+      it 'changes answer best attributes' do
+        patch :set_best, id: answer, format: :js
+        answer.reload
+
+        expect(answer.best).to eq true
+      end
+
+      it 'render set_best template' do
+        patch :set_best, id: answer, format: :js
+
+        expect(response).to render_template :set_best
+      end
+    end
+
+    context 'Not author of question' do
+      it 'tries to change best answer' do
+        sign_in(user2)
+        patch :set_best, id: answer, format: :js
+
+        expect(answer.best).to eq false
+      end
     end
   end
 end
