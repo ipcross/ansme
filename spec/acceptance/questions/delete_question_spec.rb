@@ -8,7 +8,7 @@ feature 'Delete question' do
   scenario 'Logged user delete his question' do
     sign_in(user)
     visit question_path(question)
-    click_on 'Delete question'
+    click_link 'Delete question'
 
     expect(current_path).to eq questions_path
     expect(page).to_not have_content question.title

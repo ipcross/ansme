@@ -3,6 +3,6 @@
     $('.answer-errors').html('<%= j message %>');
   <% end %>
 <% else %>
-  $('.answers').append('<%= j render "answer", answer: @answer %>');
+  $('tbody').append('<%= j render "answer", answer: @answer %>');
   $('#new-answer-form').val('');
 <% end %>

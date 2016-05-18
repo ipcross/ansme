@@ -24,7 +24,7 @@ feature 'Answer editing' do
     scenario 'try to edit his answer', js: true do
       sign_in(user)
       visit question_path(question)
-      click_on 'Edit'
+      click_link 'Edit'
       within '.answers' do
         fill_in 'Answer', with: 'edited answer'
         click_on 'Save'
