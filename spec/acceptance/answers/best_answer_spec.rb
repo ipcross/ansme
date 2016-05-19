@@ -35,10 +35,8 @@ feature 'Set Best Answer' do
       within("#answer-#{answer2.id}") do
         click_link 'Best'
       end
-
-      within 'tbody' do
-        expect(page.all('tr')[2][:id]).to eq "answer-#{answer2.id}"
-      end
+      sleep(1)
+      expect(page.first('tr.answer')[:id]).to eq "answer-#{answer2.id}"
     end
   end
 end

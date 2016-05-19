@@ -7,7 +7,7 @@ table.table.table-striped.table-bordered.table-condensed
   body
   - @question.answers.each do |answer|
     - if answer.persisted?
-      tr id="answer-#{ answer.id }" class="#{ answer.best ? 'info' : '' }"
+      tr id="answer-#{ answer.id }" class="answer #{ answer.best ? 'info' : '' }"
         td
           -if answer.best
             = 'Best answer: '
