@@ -35,7 +35,7 @@ feature 'Set Best Answer' do
       within("#answer-#{answer2.id}") do
         click_link 'Best'
       end
-      sleep(1)
+      wait_for_ajax
       expect(page.first('tr.answer')[:id]).to eq "answer-#{answer2.id}"
     end
   end
