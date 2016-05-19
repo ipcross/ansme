@@ -27,10 +27,7 @@ feature 'Set Best Answer' do
     scenario 'tries to set best answer', js: true do
       within("#answer-#{answer.id}") do
         click_link 'Best'
-      end
-
-      within '.answers' do
-        expect(find("tr.info")[:id]).to eq "answer-#{answer.id}"
+        expect(page).to have_content 'Best answer'
       end
     end
 

@@ -9,7 +9,7 @@ class AnswersController < ApplicationController
 
   def set_best
     @question = @answer.question
-    @question.user == current_user ? @answer.set_best! : (redirect_to @question)
+    @answer.set_best! if @question.user == current_user
   end
 
   def update
