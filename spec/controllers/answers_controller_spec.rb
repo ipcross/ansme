@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
   let(:user) { create(:user) }
+  let(:user2) { create(:user) }
   let(:question) { create(:question, user: user) }
   let(:answer) { create(:answer, question: question, user: user) }
 
@@ -59,12 +60,12 @@ RSpec.describe AnswersController, type: :controller do
       before { answer }
 
       it 'delete answer' do
-        expect { delete :destroy, id: answer, question_id: question }.to change(Answer, :count).by(-1)
+        expect { delete :destroy, id: answer, question_id: question, format: :js }.to change(Answer, :count).by(-1)
       end
 
       it 'redirect to index' do
-        delete :destroy, id: answer, question_id: question
-        expect(response).to redirect_to question
+        delete :destroy, id: answer, question_id: question, format: :js
+        expect(response).to render_template :destroy
       end
     end
 
@@ -77,6 +78,63 @@ RSpec.describe AnswersController, type: :controller do
       it 'redirect to index' do
         delete :destroy, id: answer, question_id: question
         expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    before do
+      sign_in(user)
+    end
+
+    it 'assings the requested answer to @answer' do
+      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+      expect(assigns(:answer)).to eq answer
+    end
+
+    it 'assigns th question' do
+      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'changes answer attributes' do
+      patch :update, id: answer, question_id: question, answer: { body: 'new body' }, format: :js
+      answer.reload
+      expect(answer.body).to eq 'new body'
+    end
+
+    it 'render update template' do
+      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+      expect(response).to render_template :update
+    end
+  end
+
+  describe 'PATCH #set_best' do
+    context 'Author of question' do
+      before do
+        sign_in(user)
+      end
+
+      it 'changes answer best attributes' do
+        patch :set_best, id: answer, format: :js
+        answer.reload
+
+        expect(answer.best).to eq true
+      end
+
+      it 'render set_best template' do
+        patch :set_best, id: answer, format: :js
+
+        expect(response).to render_template :set_best
+      end
+    end
+
+    context 'Not author of question' do
+      it 'tries to change best answer' do
+        sign_in(user2)
+        patch :set_best, id: answer, format: :js
+
+        expect(answer.best).to eq false
       end
     end
   end

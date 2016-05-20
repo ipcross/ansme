@@ -3,6 +3,7 @@
     $('.answer-errors').html('<%= j message %>');
   <% end %>
 <% else %>
-  $('tbody').append('<%= j render "answer", answer: @answer %>');
-  $('#new-answer-form').val('');
+  <% if @answer.destroyed? %>
+    $('<%= "#answer-#{ @answer.id }" %>').remove();
+  <% end %>
 <% end %>

@@ -1,14 +1,20 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_answer, only: [:destroy, :show]
+  before_action :load_answer, only: [:destroy, :show, :update, :set_best]
   before_action :load_question, only: [:new, :create]
-  before_action :load_owner, only: [:destroy]
 
   def new
     @answer = @question.answers.new
   end
 
-  def show
+  def set_best
+    @question = @answer.question
+    @answer.set_best! if @question.user == current_user
+  end
+
+  def update
+    @answer.update(answer_params)
+    @question = @answer.question
   end
 
   def create
@@ -18,9 +24,8 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    question = @answer.question
-    @answer.destroy
-    redirect_to question
+    @question = @answer.question
+    @answer.destroy if @answer.user == current_user
   end
 
   private
@@ -31,10 +36,6 @@ class AnswersController < ApplicationController
 
   def load_answer
     @answer = Answer.find(params[:id])
-  end
-
-  def load_owner
-    redirect_to @answer.question if @answer.user != current_user
   end
 
   def answer_params

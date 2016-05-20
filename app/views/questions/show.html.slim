@@ -1,12 +1,19 @@
-h1 = @question.title
-p = @question.body
-- if user_signed_in? && @question.user_id == current_user.id
-  = link_to 'Delete question', question_path(@question), method: :delete
-  p = link_to 'Edit', edit_question_path(@question)
-h3 All answers for this questions
-.answers
-  = render 'answers'
-= form_for [@question, @answer], remote: true do |f|
-  = f.label :body, 'Your answer'
-  = f.text_area :body
-  = f.submit 'Create'
+div class='panel panel-success'
+  div class='panel-heading'
+    | Question title:
+    = @question.title
+  div class='pahel-body well'
+    p = @question.body
+    - if user_signed_in? && @question.user_id == current_user.id
+      button.btn.btn-default.btn-sm[type="button"]
+        = link_to 'Edit', edit_question_path(@question)
+      button.btn.btn-default.btn-sm[type="button"]
+        = link_to 'Delete question', question_path(@question), method: :delete
+  h5 All answers for this question
+  .answers
+    = render 'answers'
+  = form_for [@question, @answer], remote: true do |f|
+     = f.label :body, 'Your answer'
+     .answer-errors
+     = f.text_area :body, id: 'new-answer-form'
+     = f.submit 'Create'

@@ -47,8 +47,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'codeclimate-test-reporter'
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'launchy'
-  gem 'selenium-webdriver'
   gem 'database_cleaner'
 end
 
@@ -61,4 +61,5 @@ group :development, :test do
   gem 'simplecov'
   gem 'factory_girl_rails'
   gem 'byebug'
+  gem 'pry-coolline'
 end

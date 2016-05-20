@@ -1,1 +1,18 @@
-p = link_to @answer.body, answer_path(@answer)
+tr id="answer-#{ answer.id }" class="answer #{ answer.best ? 'info' : '' }"
+  td
+    -if answer.best
+      = 'Best answer: '
+    = answer.body
+    - if user_signed_in? && answer.user_id == current_user.id
+      = form_for answer, remote: true, html: {id: "edit-answer-#{answer.id}"} do |f|
+        = f.label :body, 'Answer'
+        = f.text_area :body
+        = f.submit 'Save'
+  td.actioncell
+    - if user_signed_in? && answer.user_id == current_user.id
+      button.btn.btn-default.btn-sm[type="button"]
+        = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id}
+      button.btn.btn-default.btn-sm[type="button"]
+        = link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
+      button.btn.btn-default.btn-sm[type="button"]
+        = link_to 'Best', set_best_answer_path(answer), method: :patch, remote: true
