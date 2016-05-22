@@ -8,6 +8,10 @@ tr id="answer-#{ answer.id }" class="answer #{ answer.best ? 'info' : '' }"
         = f.label :body, 'Answer'
         = f.text_area :body
         = f.submit 'Save'
+  td
+    ul
+      - answer.attachments.each do |a|
+        li= link_to a.file.filename, a.file.url
   td.actioncell
     - if user_signed_in? && answer.user_id == current_user.id
       button.btn.btn-default.btn-sm[type="button"]
