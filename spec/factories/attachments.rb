@@ -1,7 +1,11 @@
 FactoryGirl.define do
   factory :attachment do
-    file "MyString"
-    attachable_id 1
-    attachable_type "MyString"
+    file { Rack::Test::UploadedFile.new("#{Rails.root}/spec/spec_helper.rb") }
+    factory :question_attachment do
+      association :attachable, factory: :question
+    end
+    factory :answer_attachment do
+      association :attachable, factory: :answer
+    end
   end
 end
