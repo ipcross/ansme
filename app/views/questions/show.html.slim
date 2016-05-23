@@ -16,13 +16,4 @@ div class='panel panel-success'
   h5 All answers for this question
   .answers
     = render 'answers'
-  = form_for [@question, @answer], remote: true do |f|
-    = f.label :body, 'Your answer'
-    .answer-errors
-    = f.text_area :body, id: 'new-answer-form'
-    p
-      = f.fields_for :attachments do |attach|
-        = render 'attachment_fields', f: attach
-      .links
-        = link_to_add_association 'Add attachment', f, :attachments
-    = f.submit 'Create'
+    = render 'answers/form', answer: @answer

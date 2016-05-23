@@ -7,6 +7,11 @@ tr id="answer-#{ answer.id }" class="answer #{ answer.best ? 'info' : '' }"
       = form_for answer, remote: true, html: {id: "edit-answer-#{answer.id}"} do |f|
         = f.label :body, 'Answer'
         = f.text_area :body
+        p
+          = f.fields_for :attachments do |attach|
+            = render 'questions/attachment_fields', f: attach
+          .links
+            = link_to_add_association 'Add attachment', f, :attachments, partial: 'questions/attachment_fields'
         = f.submit 'Save'
   td
     ul
