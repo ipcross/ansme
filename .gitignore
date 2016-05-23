@@ -19,7 +19,6 @@ database.yml
 /tmp
 /nbproject
 .project
-ERD.pdf
 coverage
 git_stats/
 public/assets/
