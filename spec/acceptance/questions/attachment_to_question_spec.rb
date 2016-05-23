@@ -1,6 +1,6 @@
 require_relative '../acceptance_helper'
 
-feature 'Add and delete files for question' do
+feature 'Attachments for question' do
   given(:user) { create(:user) }
   given(:question) { create(:question, user: user) }
 
@@ -25,6 +25,15 @@ feature 'Add and delete files for question' do
     click_on 'Create'
     expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
     expect(page).to have_link 'rails_helper.rb', href: '/uploads/attachment/file/2/rails_helper.rb'
+  end
+
+  scenario 'User add file when edit question', js: true do
+    visit edit_question_path(question)
+    click_on 'Add attachment'
+    wait_for_ajax
+    attach_file 'File', "#{Rails.root}/spec/shoulda_matchers_helper.rb"
+    click_on 'Update'
+    expect(page).to have_link 'shoulda_matchers_helper.rb'
   end
 
   scenario 'User delete file from question', js: true do

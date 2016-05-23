@@ -1,8 +1,8 @@
 require_relative '../acceptance_helper'
 
-feature 'Add files to answer' do
+feature 'Attachments for answer' do
   given(:user) { create(:user) }
-  given(:question) { create(:question) }
+  given(:question) { create(:question, user: user) }
   given(:answer) { create(:answer, question: question, user: user) }
 
   background do
@@ -15,9 +15,6 @@ feature 'Add files to answer' do
     fill_in 'new-answer-form', with: 'My answer'
     click_on 'Add attachment'
     wait_for_ajax
-    attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
-    click_on 'Add attachment'
-    wait_for_ajax
     within '.nested-fields:nth-of-type(2)' do
       attach_file 'File', "#{Rails.root}/spec/rails_helper.rb"
     end
@@ -26,6 +23,17 @@ feature 'Add files to answer' do
       expect(page).to have_link 'spec_helper.rb', href: '/uploads/attachment/file/1/spec_helper.rb'
       expect(page).to have_link 'rails_helper.rb', href: '/uploads/attachment/file/2/rails_helper.rb'
     end
+  end
+
+  scenario 'User add file when edit question', js: true do
+    within '.answer' do
+      click_link 'Edit'
+      click_on 'Add attachment'
+      wait_for_ajax
+      attach_file 'File', "#{Rails.root}/spec/shoulda_matchers_helper.rb"
+      click_on 'Save'
+    end
+    expect(page).to have_link 'shoulda_matchers_helper.rb'
   end
 
   scenario 'User delete file from answer', js: true do
