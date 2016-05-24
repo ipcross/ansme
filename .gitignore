@@ -19,11 +19,11 @@ database.yml
 /tmp
 /nbproject
 .project
-ERD.pdf
 coverage
 git_stats/
 public/assets/
 public/source_maps/
+public/uploads/
 *.swp
 .byebug_history
 .fuse_hidden*
