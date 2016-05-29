@@ -1,0 +1,16 @@
+.vote
+  div class="raiting-Question#{question.id}"
+    | Raiting:
+    = question.total_score
+  .vote_contol
+    - if signed_in? && question.user_id != current_user.id
+      .btn-group
+        .btn-group
+          = button_to 'up', vote_up_question_path(question), id: "voteup-Question#{question.id}",
+            disabled: voted, method: :patch, class: "btn btn-default", remote: true, data: {type: :json}
+        .btn-group
+          = button_to 'down', vote_down_question_path(question), id: "votedown-Question#{question.id}",
+            disabled: voted, method: :patch, class: "btn btn-default", remote: true, data: {type: :json}
+        .btn-group
+          = button_to 'clean', delete_vote_question_path(question), id: "cleanvote-Question#{question.id}",
+            disabled: !voted, method: :delete, class: "btn btn-default", remote: true, data: { type: :json }
