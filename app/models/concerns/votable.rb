@@ -17,7 +17,7 @@ module Votable
   end
 
   def voted_by?(user)
-    votes.where(user: user).present?
+    votes.exists?(user: user)
   end
 
   def total_score
