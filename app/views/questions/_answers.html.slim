@@ -5,6 +5,8 @@ table.table.table-striped.table-bordered.table-condensed
         | Body
       th
         | Attachments
+      th
+        | Vote
       th.actioncell
   body
   - @question.answers.each do |answer|
@@ -20,7 +22,7 @@ table.table.table-striped.table-bordered.table-condensed
               = f.text_area :body
               p
                 = f.fields_for :attachments do |attach|
-                  = render 'attachment_fields', f: attach
+                  = render 'questions/attachment_fields', f: attach
                 .links
                   = link_to_add_association 'Add attachment', f, :attachments, partial: 'questions/attachment_fields'
               = f.submit 'Save'
@@ -28,6 +30,9 @@ table.table.table-striped.table-bordered.table-condensed
           ul
             - answer.attachments.each do |a|
               li= link_to a.file.filename, a.file.url
+        td
+          = render 'answers/vote', answer: answer, voted: answer.voted_by?(current_user)
+          
         td.actioncell
           - if user_signed_in? && answer.user_id == current_user.id
             button.btn.btn-default.btn-sm[type="button"]

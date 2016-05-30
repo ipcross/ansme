@@ -5,7 +5,7 @@ AllCops:
     - 'tmp/**/*'
     - 'db/**/*'
     - 'bin/**/*'
-    - 'public/uploads/**/*'
+    - 'public/uploads/**/**/**/*'
   DisplayCopNames: true
   StyleGuideCopsOnly: false
 

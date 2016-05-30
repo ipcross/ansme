@@ -5,6 +5,7 @@ RSpec.describe AnswersController, type: :controller do
   let(:user2) { create(:user) }
   let(:question) { create(:question, user: user) }
   let(:answer) { create(:answer, question: question, user: user) }
+  let(:answer2) { create(:answer, question: question, user: user2) }
 
   describe 'GET #new' do
     before do
@@ -135,6 +136,62 @@ RSpec.describe AnswersController, type: :controller do
         patch :set_best, id: answer, format: :js
 
         expect(answer.best).to eq false
+      end
+    end
+  end
+
+  describe 'PATCH #vote_up #vote_down' do
+    before { sign_in(user) }
+    before { answer }
+    before { answer2 }
+    context 'vote_up for other users answer' do
+      it 'assigns answer to @answer' do
+        patch :vote_up, id: answer2, format: :json
+        expect(assigns(:votable)).to eq answer2
+      end
+
+      it 'votes up for answer' do
+        expect { patch :vote_up, id: answer2, format: :json }.to change(answer2.votes, :count).by(1)
+      end
+    end
+
+    context 'vote_up for own answer' do
+      it 'dont votes up for answer' do
+        expect { patch :vote_up, id: answer, format: :json }.to_not change(Vote, :count)
+      end
+    end
+
+    context 'vote_down for other users answer' do
+      it 'assigns answer to @answer' do
+        patch :vote_down, id: answer2, format: :json
+        expect(assigns(:votable)).to eq answer2
+      end
+
+      it 'votes down for answer' do
+        expect { patch :vote_down, id: answer2, format: :json }.to change(answer2.votes, :count).by(1)
+      end
+    end
+
+    context 'vote_down for own answer' do
+      it 'dont votes up for answer' do
+        expect { patch :vote_down, id: answer, format: :json }.to_not change(Vote, :count)
+      end
+    end
+  end
+
+  describe 'DELETE #delete_vote' do
+    before { sign_in(user) }
+    before { answer }
+    before { answer2 }
+    context 'deletes vote' do
+      it 'assigns answer to @answer' do
+        patch :delete_vote, id: answer2, format: :json
+        expect(assigns(:votable)).to eq answer2
+      end
+
+      it 'deletes existed vote for answer' do
+        patch :vote_up, id: answer2, format: :json
+        expect { patch :delete_vote, id: answer2, format: :json }.to change(answer2.votes, :count).by(-1)
       end
     end
   end
