@@ -18,3 +18,5 @@ div class='panel panel-success'
   .answers
     = render 'answers'
   = render 'answers/form', answer: @answer
+
+  = subscribe_to "/questions/#{@question.id}/answers"
