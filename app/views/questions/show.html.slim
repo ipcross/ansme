@@ -9,10 +9,8 @@ div class='panel panel-success'
       - @question.attachments.each do |a|
         li= link_to a.file.filename, a.file.url
     - if user_signed_in? && @question.user_id == current_user.id
-      button.btn.btn-default.btn-sm[type="button"]
-        = link_to 'Edit', edit_question_path(@question)
-      button.btn.btn-default.btn-sm[type="button"]
-        = link_to 'Delete question', question_path(@question), method: :delete
+      = link_to 'Edit', edit_question_path(@question), role: "button", class: "btn btn-default btn-sm"
+      = link_to 'Delete question', question_path(@question), role: "button", class: "btn btn-default btn-sm", method: :delete
     = render 'vote', question: @question, voted: @question.voted_by?(current_user)
   h5 All answers for this question
   .answers
