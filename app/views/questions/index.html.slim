@@ -11,12 +11,5 @@ div class='panel panel-info'
         th.actioncell
     body
       - @questions.each do |question|
-        tr
-          td
-            = link_to question, question_path(question)
-          td
-            = question.body
-          td.actioncell
-            - if user_signed_in? && question.user_id == current_user.id
-              = link_to 'Edit', edit_question_path(question), role: "button", class: "btn btn-default btn-sm"
-              = link_to 'Delete', question_path(question), role: "button", class: "btn btn-default btn-sm", method: :delete
+        = render "question", question: question
+      =subscribe_to "/questions"
