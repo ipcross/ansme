@@ -1,7 +1,8 @@
 ready = ->
   PrivatePub.subscribe "/questions", (data, channel) ->
     question = $.parseJSON(data['question'])
-    $('tbody').append("<tr><td><a href=/questions/#{question.id}>#{question.title}</a></td> <td>#{question.body}</td><td></td></tr>");
+    current_user = $.parseJSON(data['current_user'])
+    $('tbody').append(JST["templates/question"]({question: question, current_user: current_user}));
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

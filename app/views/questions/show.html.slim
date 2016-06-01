@@ -3,15 +3,20 @@ div class='panel panel-success'
     | Question title:
     = @question.title
   div class='pahel-body well question'
-    p = @question.body
-    p Attachments:
-    ul
-      - @question.attachments.each do |a|
-        li= link_to a.file.filename, a.file.url
-    - if user_signed_in? && @question.user_id == current_user.id
-      = link_to 'Edit', edit_question_path(@question), role: "button", class: "btn btn-default btn-sm"
-      = link_to 'Delete question', question_path(@question), role: "button", class: "btn btn-default btn-sm", method: :delete
-    = render 'vote', question: @question, voted: @question.voted_by?(current_user)
+    .container
+      .row
+        .col-md-4
+          p = @question.body
+          p Attachments:
+          ul
+            - @question.attachments.each do |a|
+              li= link_to a.file.filename, a.file.url
+          - if user_signed_in? && @question.user_id == current_user.id
+            = link_to 'Edit', edit_question_path(@question), role: "button", class: "btn btn-default btn-sm"
+            = link_to 'Delete question', question_path(@question), role: "button", class: "btn btn-default btn-sm", method: :delete
+          = render 'vote', question: @question, voted: @question.voted_by?(current_user)
+        .col-md-8
+          
   h5 All answers for this question
   .answers
     = render 'answers'

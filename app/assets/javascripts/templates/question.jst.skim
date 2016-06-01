@@ -1,0 +1,9 @@
+tr
+  td
+    a href="/questions/#{@question.id}" = @question.title
+  td
+    = @question.body
+  td.actioncell
+    - if @question.user_id == @current_user.id
+      a.btn.btn-default.btn-sm role="button" href="/questions/#{@question.id}/edit" Edit
+      a.btn.btn-default.btn-sm role="button" data-method="delete" rel="noffolow" href="/questions/#{@question.id}" Delete
