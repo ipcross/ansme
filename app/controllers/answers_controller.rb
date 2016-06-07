@@ -12,17 +12,20 @@ class AnswersController < ApplicationController
   def set_best
     @question = @answer.question
     @answer.set_best! if @question.user == current_user && !@answer.best
+    @comment = Comment.new
   end
 
   def update
     @answer.update(answer_params)
     @question = @answer.question
+    @comment = Comment.new
   end
 
   def create
     @answer = @question.answers.new(answer_params)
     @answer.user_id = current_user.id
     @answer.save
+    @comment = Comment.new
   end
 
   def destroy

@@ -4,7 +4,7 @@
   <% end %>
 <% else %>
   <% publish_to "/questions/#{@question.id}/answers" do %>
-    $('tbody').append('<%= j render "answer", answer: @answer %>');
+    $('tbody').append('<%= j render "answer", answer: @answer, comment: @comment %>');
   <% end %>
   $('#new-answer-form').val('');
 <% end %>

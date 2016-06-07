@@ -3,7 +3,7 @@ div class='panel panel-success'
     | Question title:
     = @question.title
   div class='pahel-body well question'
-    .container
+    .container-fluent
       .row
         .col-md-4
           p = @question.body
@@ -16,7 +16,14 @@ div class='panel panel-success'
             = link_to 'Delete question', question_path(@question), role: "button", class: "btn btn-default btn-sm", method: :delete
           = render 'vote', question: @question, voted: @question.voted_by?(current_user)
         .col-md-8
-          
+          .comments
+            .Question-comments id="#{@question.id}"
+              p Comments:
+              = render @question.comments.order('created_at')
+              = subscribe_to "/comments"
+          .question-comment-form
+            = render 'comments/form', commentable: @question
+
   h5 All answers for this question
   .answers
     = render 'answers'
