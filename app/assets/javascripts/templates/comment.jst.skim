@@ -1,0 +1,8 @@
+.comment.panel.panel-info
+  .panel-heading
+    .panel-title
+      = @comment_author
+      |  
+      = @created_at
+  .panel-body
+    = @comment

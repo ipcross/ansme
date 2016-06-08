@@ -19,3 +19,7 @@
  @import "bootstrap";
 
 body { padding-top: 70px; }
+
+th.actioncell { width: 230px; }
+td.vote { width: 150px; }
+textarea#new-answer-form, textarea#answer_body, textarea#comment_body  { width: 300px; }

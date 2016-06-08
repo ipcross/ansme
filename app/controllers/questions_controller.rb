@@ -11,6 +11,7 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = @question.answers.build
+    @comment = Comment.new
   end
 
   def new
@@ -26,6 +27,7 @@ class QuestionsController < ApplicationController
 
     if @question.save
       flash[:notice] = 'Your question successfully created.'
+      PrivatePub.publish_to "/questions", question: @question.to_json, current_user: current_user.to_json
       redirect_to @question
     else
       render :new

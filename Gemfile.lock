@@ -65,6 +65,7 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
+    cliver (0.3.2)
     cocoon (1.2.9)
     codeclimate-test-reporter (0.5.0)
       simplecov (>= 0.7.1, < 1.0.0)
@@ -77,8 +78,10 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
+    cookiejar (0.3.0)
     coolline (0.5.0)
       unicode_utils (~> 1.4)
+    daemons (1.2.3)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     devise (4.1.1)
@@ -89,17 +92,42 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    em-http-request (1.1.3)
+      addressable (>= 2.3.4)
+      cookiejar (<= 0.3.0)
+      em-socksify (>= 0.3)
+      eventmachine (>= 1.0.3)
+      http_parser.rb (>= 0.6.0)
+    em-socksify (0.3.1)
+      eventmachine (>= 1.0.0.beta.4)
     erubis (2.7.0)
+    eventmachine (1.2.0.1)
     execjs (2.6.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.7.0)
       factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
+    faye (1.1.2)
+      cookiejar (>= 0.3.0)
+      em-http-request (>= 0.3.0)
+      eventmachine (>= 0.12.0)
+      faye-websocket (>= 0.9.1)
+      multi_json (>= 1.0.0)
+      rack (>= 1.0.0)
+      websocket-driver (>= 0.5.1)
+    faye-websocket (0.10.4)
+      eventmachine (>= 0.12.0)
+      websocket-driver (>= 0.5.1)
     ffi (1.9.10)
     formatador (0.2.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    gon (6.0.1)
+      actionpack (>= 3.0)
+      json
+      multi_json
+      request_store (>= 1.0)
     guard (2.13.0)
       formatador (>= 0.2.4)
       listen (>= 2.7, <= 4.0)
@@ -121,6 +149,7 @@ GEM
     guard-rubocop (1.2.0)
       guard (~> 2.0)
       rubocop (~> 0.20)
+    http_parser.rb (0.6.0)
     i18n (0.7.0)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
@@ -159,7 +188,14 @@ GEM
     parser (2.3.1.0)
       ast (~> 2.2)
     pg (0.18.4)
+    poltergeist (1.9.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     powerpack (0.1.1)
+    private_pub (1.0.3)
+      faye
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -202,6 +238,7 @@ GEM
     rdoc (4.2.2)
       json (~> 1.4)
     remotipart (1.2.1)
+    request_store (1.3.1)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
     rspec (3.4.0)
@@ -254,6 +291,11 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    skim (0.10.0)
+      coffee-script
+      coffee-script-source (>= 1.2.0)
+      slim (>= 3.0)
+      sprockets (>= 2, < 4)
     slim (3.0.6)
       temple (~> 0.7.3)
       tilt (>= 1.3.3, < 2.1)
@@ -273,6 +315,10 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     temple (0.7.6)
+    thin (1.7.0)
+      daemons (~> 1.0, >= 1.0.9)
+      eventmachine (~> 1.0, >= 1.0.4)
+      rack (>= 1, < 3)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.4)
@@ -291,6 +337,9 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    websocket-driver (0.6.4)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -310,6 +359,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails
+  gon
   guard
   guard-bundler
   guard-rspec
@@ -318,6 +368,8 @@ DEPENDENCIES
   jquery-rails
   launchy
   pg
+  poltergeist
+  private_pub
   pry-coolline
   rails (= 4.2.6)
   rb-readline
@@ -328,8 +380,10 @@ DEPENDENCIES
   shoulda-matchers
   simple_form
   simplecov
+  skim
   slim-rails
   spring
+  thin
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)

@@ -1,0 +1,23 @@
+tr id="answer-#{ @answer.id }" class="answer #{ @answer.best ? 'info' : '' }"
+  td.vote
+    | Raiting:
+    = @answer.total_score
+  td
+    -if @answer.best
+      = 'Best answer: '
+    = @answer.body
+    ul
+      - i = 0
+      - while (i < @attachments.length)
+        div id="attach-#{ @attachments[i].id }"
+          li
+            a href="#{@attachments[i].url}"  #{@attachments[i].name}
+        - i++
+  td
+    .comments
+      .Answer-comments id="#{@answer.id}"
+  td.actioncell
+        - if gon.user_signed_in? && @answer.user_id == gon.current_user_id
+          a class="edit-answer-link btn btn-default btn-sm" role="button" data-answer-id="#{@answer.id}" href="" Edit
+          a class="btn btn-default btn-sm" role="button" data-remote="true" rel="nofollow" data-method="delete" href="/answers/#{@answer.id}" Delete answer
+          a class="btn btn-default btn-sm" role="button" data-remote="true" rel="nofollow" data-method="patch" href="/answers/#{@answer.id}/set_best" Best

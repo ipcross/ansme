@@ -15,3 +15,4 @@ before_script:
   - mysql -e 'create database db_test'
   - psql -c 'create database db_test' -U postgres
   - 'sh -e /etc/init.d/xvfb start'
+  - bundle exec rackup private_pub.ru -s thin -E production &

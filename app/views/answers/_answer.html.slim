@@ -1,8 +1,13 @@
 tr id="answer-#{ answer.id }" class="answer #{ answer.best ? 'info' : '' }"
+  td.vote
+    = render 'answers/vote', answer: answer, voted: answer.voted_by?(current_user)
   td
     -if answer.best
       = 'Best answer: '
     = answer.body
+    ul
+      - answer.attachments.each do |a|
+        li= link_to a.file.filename, a.file.url
     - if user_signed_in? && answer.user_id == current_user.id
       = form_for answer, remote: true, html: {id: "edit-answer-#{answer.id}"} do |f|
         = f.label :body, 'Answer'
@@ -14,16 +19,13 @@ tr id="answer-#{ answer.id }" class="answer #{ answer.best ? 'info' : '' }"
             = link_to_add_association 'Add attachment', f, :attachments, partial: 'questions/attachment_fields'
         = f.submit 'Save'
   td
-    ul
-      - answer.attachments.each do |a|
-        li= link_to a.file.filename, a.file.url
-  td
-    = render 'answers/vote', answer: answer, voted: answer.voted_by?(current_user)
+    .comments
+      .Answer-comments id="#{answer.id}"
+        = render answer.comments.order('created_at')
+      .answer-comment-form
+        = render 'comments/form', commentable: answer
   td.actioncell
     - if user_signed_in? && answer.user_id == current_user.id
-      button.btn.btn-default.btn-sm[type="button"]
-        = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id}
-      button.btn.btn-default.btn-sm[type="button"]
-        = link_to 'Delete answer', answer_path(answer), method: :delete, remote: true
-      button.btn.btn-default.btn-sm[type="button"]
-        = link_to 'Best', set_best_answer_path(answer), method: :patch, remote: true
+      = link_to 'Edit', '', class: 'edit-answer-link btn btn-default btn-sm', data: { answer_id: answer.id}, role: "button"
+      = link_to 'Delete answer', answer_path(answer), method: :delete, remote: true, role: "button", class: "btn btn-default btn-sm"
+      = link_to 'Best', set_best_answer_path(answer), method: :patch, remote: true, role: "button", class: "btn btn-default btn-sm"

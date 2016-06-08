@@ -4,6 +4,7 @@ class Question < ActiveRecord::Base
 
   include Attachable
   include Votable
+  include Commentable
 
   validates :title, :body, :user_id, presence: true
 

@@ -21,6 +21,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'slim-rails'
+gem 'gon'
+gem 'skim'
 gem 'devise'
 
 gem 'bootstrap-sass', '~> 3.3.1'
@@ -30,6 +32,9 @@ gem 'carrierwave'
 gem 'remotipart', '~> 1.2'
 gem 'cocoon'
 gem 'rb-readline'
+gem 'private_pub'
+gem 'thin'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -51,6 +56,7 @@ group :test do
   gem 'codeclimate-test-reporter'
   gem 'capybara'
   gem 'capybara-webkit'
+  gem 'poltergeist'
   gem 'launchy'
   gem 'database_cleaner'
 end

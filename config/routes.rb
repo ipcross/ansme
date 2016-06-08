@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   end
 
   resources :questions, concerns: :votable do
+    resources :comments, only: :create, defaults: { commentable: 'questions' }
     resources :answers, concerns: :votable, shallow: true do
+      resources :comments, only: :create, defaults: { commentable: 'answers' }
       member do
         patch 'set_best'
       end

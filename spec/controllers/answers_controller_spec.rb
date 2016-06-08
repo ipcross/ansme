@@ -36,9 +36,9 @@ RSpec.describe AnswersController, type: :controller do
         expect(answer.user_id).to eq(user.id)
       end
 
-      it 'render create template' do
+      it 'render empty' do
         post :create, answer: attributes_for(:answer), question_id: question, format: :js
-        expect(response).to render_template :create
+        expect(response.body).to eq ''
       end
     end
 

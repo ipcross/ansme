@@ -6,6 +6,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'shoulda_matchers_helper'
 require 'rspec/rails'
+require 'capybara/poltergeist'
 
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start

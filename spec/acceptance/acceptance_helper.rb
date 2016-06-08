@@ -4,8 +4,12 @@ Capybara::Webkit.configure do |config|
   config.allow_url("js.stripe.com")
 end
 
+Capybara.register_driver :poltergeist_debug do |app|
+  Capybara::Poltergeist::Driver.new(app, inspector: true)
+end
+
 RSpec.configure do |config|
-  Capybara.javascript_driver = :webkit
+  Capybara.javascript_driver = :poltergeist_debug
 
   config.include AcceptanceMacros, type: :feature
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
