@@ -25,7 +25,7 @@ div class='panel panel-success'
             = render 'comments/form', commentable: @question
 
   h5 All answers for this question
-  .answers
+  .answers data={ question_id: "#{@question.id}"}
     = render 'answers'
   = render 'answers/form', answer: @answer
 

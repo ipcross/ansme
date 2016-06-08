@@ -24,8 +24,14 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.answers.new(answer_params)
     @answer.user_id = current_user.id
-    @answer.save
     @comment = Comment.new
+    if @answer.save
+      PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: @answer.to_json,
+        attachments: answer_attachments(@answer)
+      render nothing: true
+    else
+      render :create
+    end
   end
 
   def destroy
@@ -34,6 +40,14 @@ class AnswersController < ApplicationController
   end
 
   private
+
+  def answer_attachments(answer)
+    arr = []
+    answer.attachments.each_with_index do |attachment, i|
+      arr[i] = { name: attachment.file.identifier, url: attachment.file.url, id: attachment.id }
+    end
+    arr.to_json
+  end
 
   def load_question
     @question = Question.find(params[:question_id])

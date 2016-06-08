@@ -21,6 +21,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'slim-rails'
+gem 'gon'
 gem 'skim'
 gem 'devise'
 
@@ -54,6 +55,7 @@ group :test do
   gem 'codeclimate-test-reporter'
   gem 'capybara'
   gem 'capybara-webkit'
+  gem 'poltergeist'
   gem 'launchy'
   gem 'database_cleaner'
 end
