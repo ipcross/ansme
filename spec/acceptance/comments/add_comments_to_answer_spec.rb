@@ -23,8 +23,8 @@ feature 'Add comment' do
         wait_for_ajax
       end
     end
-    #page.driver.debug
-    #expect(page).to have_content user[:email]
-    #expect(page).to have_content 'Answer comment'
+    # page.driver.debug
+    # expect(page).to have_content user[:email]
+    # expect(page).to have_content 'Answer comment'
   end
 end

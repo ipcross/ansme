@@ -1,45 +1,43 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_answer, only: [:destroy, :show, :update, :set_best]
+  before_action :load_answer, only: [:destroy, :update, :set_best]
   before_action :load_question, only: [:new, :create]
+  after_action :publish_answer, only: :create
 
   include Voted
+
+  respond_to :js
+  respond_to :json, only: :create
 
   def new
     @answer = @question.answers.new
   end
 
   def set_best
-    @question = @answer.question
     @answer.set_best! if @question.user == current_user && !@answer.best
-    @comment = Comment.new
   end
 
   def update
     @answer.update(answer_params)
-    @question = @answer.question
-    @comment = Comment.new
+    respond_with @answer
   end
 
   def create
     @answer = @question.answers.new(answer_params)
     @answer.user_id = current_user.id
-    @comment = Comment.new
-    if @answer.save
-      PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: @answer.to_json,
-        attachments: answer_attachments(@answer)
-      render nothing: true
-    else
-      render :create
-    end
+    @answer.save
   end
 
   def destroy
-    @question = @answer.question
     @answer.destroy if @answer.user == current_user
   end
 
   private
+
+  def publish_answer
+    PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: @answer.to_json,
+      attachments: answer_attachments(@answer) if @answer.valid?
+  end
 
   def answer_attachments(answer)
     arr = []
@@ -55,6 +53,7 @@ class AnswersController < ApplicationController
 
   def load_answer
     @answer = Answer.find(params[:id])
+    @question = @answer.question
   end
 
   def answer_params

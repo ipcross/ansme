@@ -2,21 +2,19 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_commentable, only: [:create]
 
+  respond_to :js, :json
+
   def create
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
 
-    respond_to do |format|
-      if @comment.save
-        format.js do
-          PrivatePub.publish_to "/comments", comment: @comment.to_json,
-                                created_at: @comment.created_at.strftime('%F').to_json,
-                                comment_author: @comment.user.email.to_json
-          render nothing: true
-        end
-      else
-        format.json { render json: { errors: @comment.errors.full_messages } }
-      end
+    if @comment.save
+      PrivatePub.publish_to "/comments", comment: @comment.to_json,
+                            created_at: @comment.created_at.strftime('%F').to_json,
+                            comment_author: @comment.user.email.to_json
+      render nothing: true
+    else
+      render json: { errors: @comment.errors.full_messages }
     end
   end
 

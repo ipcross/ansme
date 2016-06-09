@@ -14,7 +14,7 @@ feature 'Create question' do
 
     expect(page).to have_content 'Test title for question'
     expect(page).to have_content 'Bit text for question'
-    expect(page).to have_content 'Your question successfully created.'
+    expect(page).to have_content 'Question was successfully created.'
   end
 
   scenario 'Non-authenticated user try to create question' do

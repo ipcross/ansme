@@ -15,8 +15,6 @@ ready = ->
     attachments = $.parseJSON(data['attachments'])
     $('tbody').append(JST["templates/answer"]({answer: answer, attachments: attachments}))
 
-  $('#new-answer-form').val('')
-
 $(document).ready(ready) # "вешаем" функцию ready на событие document.ready
 $(document).on('page:load', ready)  # "вешаем" функцию ready на событие page:load
 $(document).on('page:update', ready)
