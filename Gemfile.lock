@@ -374,6 +374,7 @@ DEPENDENCIES
   rails (= 4.2.6)
   rb-readline
   remotipart (~> 1.2)
+  responders
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

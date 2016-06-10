@@ -34,6 +34,7 @@ gem 'cocoon'
 gem 'rb-readline'
 gem 'private_pub'
 gem 'thin'
+gem 'responders'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
