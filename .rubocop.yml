@@ -10,7 +10,7 @@ AllCops:
   StyleGuideCopsOnly: false
 
 Metrics/LineLength:
-  Max: 130
+  Max: 150
 
 Metrics/MethodLength:
   Max: 30
