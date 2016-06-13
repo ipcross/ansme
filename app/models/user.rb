@@ -15,14 +15,9 @@ class User < ActiveRecord::Base
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
     return authorization.user if authorization
 
-    # rubocop:disable GuardClause
     email = auth.info[:email]
-    if email
-      user = User.where(email: email).first
-    else
-      return User.new
-    end
-    # rubocop:enable GuardClause
+    return User.new unless email
+    user = User.where(email: email).first
 
     unless user
       password = Devise.friendly_token[0, 20]
