@@ -6,6 +6,8 @@ class AnswersController < ApplicationController
 
   include Voted
 
+  authorize_resource
+
   respond_to :js
   respond_to :json, only: :create
 

@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'shoulda_matchers_helper'
 require 'rspec/rails'
 require 'capybara/poltergeist'
+require 'cancan/matchers'
 
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start

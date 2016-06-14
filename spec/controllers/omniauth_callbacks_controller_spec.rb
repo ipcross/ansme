@@ -7,7 +7,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
   describe 'GET #facebook' do
     context 'user dont exist yet' do
       before do
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: 'facebook', uid: '123456', info: { email: 'new-user@email.com' } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { email: 'new-user@email.com' })
         get :facebook
       end
 
@@ -20,7 +20,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
     context 'found user without authorization' do
       before do
         user
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: 'facebook', uid: '123456', info: { email: user.email } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { email: user.email })
         get :facebook
       end
 
@@ -33,7 +33,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
     context 'found user with authorization' do
       let(:auth) { create(:authorization, user: user) }
       before do
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: auth.provider, uid: auth.uid, info: { email: user.email } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: auth.provider, uid: auth.uid, info: { email: user.email })
         get :facebook
       end
 
@@ -47,7 +47,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
   describe 'GET #vkontakte' do
     context 'user dont exist yet' do
       before do
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: 'vkontakte', uid: '123456', info: { email: 'new-user@email.com' } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: 'vkontakte', uid: '123456', info: { email: 'new-user@email.com' })
         get :vkontakte
       end
 
@@ -60,7 +60,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
     context 'found user without authorization' do
       before do
         user
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: 'vkontakte', uid: '123456', info: { email: user.email } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: 'vkontakte', uid: '123456', info: { email: user.email })
         get :vkontakte
       end
 
@@ -73,7 +73,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
     context 'found user with authorization' do
       let(:auth) { create(:authorization, provider: 'vkontakte', user: user) }
       before do
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: auth.provider, uid: auth.uid, info: { email: user.email } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: auth.provider, uid: auth.uid, info: { email: user.email })
         get :vkontakte
       end
 
@@ -87,7 +87,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
   describe 'GET #twitter' do
     context 'email not returned' do
       before do
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: 'twitter', uid: '123456', info: { email: nil } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: 'twitter', uid: '123456', info: { email: nil })
         get :twitter
       end
 
@@ -101,7 +101,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
 
     context 'user dont exist yet' do
       before do
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: 'twitter', uid: '123456', info: { email: 'new-user@email.com' } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: 'twitter', uid: '123456', info: { email: 'new-user@email.com' })
         get :twitter
       end
 
@@ -114,7 +114,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
     context 'found user without authorization' do
       before do
         user
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: 'vkontakte', uid: '123456', info: { email: user.email } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: 'vkontakte', uid: '123456', info: { email: user.email })
         get :twitter
       end
 
@@ -127,7 +127,7 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
     context 'found user with authorization' do
       let(:auth) { create(:authorization, provider: 'twitter', user: user) }
       before do
-        request.env["omniauth.auth"] = OmniAuth::AuthHash.new({ provider: auth.provider, uid: auth.uid, info: { email: user.email } })
+        request.env["omniauth.auth"] = OmniAuth::AuthHash.new(provider: auth.provider, uid: auth.uid, info: { email: user.email })
         get :twitter
       end
 
