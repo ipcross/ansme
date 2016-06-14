@@ -4,6 +4,6 @@ tr
   td
     = question.body
   td.actioncell
-    - if user_signed_in? && question.user_id == current_user.id
-      = link_to 'Edit', edit_question_path(question), role: "button", class: "btn btn-default btn-sm"
-      = link_to 'Delete', question_path(question), role: "button", class: "btn btn-default btn-sm", method: :delete
+    - if user_signed_in?
+      = link_to 'Edit', edit_question_path(question), role: "button", class: "btn btn-default btn-sm" if can? :update, question
+      = link_to 'Delete', question_path(question), role: "button", class: "btn btn-default btn-sm", method: :delete if can? :destroy, question

@@ -6,19 +6,16 @@ module Voted
   end
 
   def vote_up
-    authorize! :vote_up, @votable
     @votable.vote_up(current_user)
     render json: { model: model_klass.to_s, votable_id: @votable.id, score: @votable.total_score, voted: true }
   end
 
   def vote_down
-    authorize! :vote_down, @votable
     @votable.vote_down(current_user)
     render json: { model: model_klass.to_s, votable_id: @votable.id, score: @votable.total_score, voted: true }
   end
 
   def delete_vote
-    authorize! :delete_vote, @votable
     @votable.delete_vote(current_user)
     render json: { model: model_klass.to_s, votable_id: @votable.id, score: @votable.total_score, voted: false }
   end
@@ -31,5 +28,6 @@ module Voted
 
   def find_votable
     @votable = model_klass.find(params[:id])
+    authorize! action_name.to_sym, @votable
   end
 end
