@@ -48,7 +48,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    sign_in_user
+    before { sign_in(user) }
     before { get :edit, id: question }
 
     it 'assings the requested question to @question' do
@@ -91,7 +91,7 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    sign_in_user
+    before { sign_in(user) }
     context 'valid attributes' do
       it 'assings the requested question to @question' do
         patch :update, id: question, question: attributes_for(:question)
@@ -118,10 +118,6 @@ RSpec.describe QuestionsController, type: :controller do
         question.reload
         expect(question.title).to eq 'Question title'
         expect(question.body).to eq 'Question body'
-      end
-
-      it 're-renders edit view' do
-        expect(response).to render_template :edit
       end
     end
   end

@@ -6,12 +6,12 @@ module Voted
   end
 
   def vote_up
-    @votable.vote_up(current_user) unless check_author
+    @votable.vote_up(current_user)
     render json: { model: model_klass.to_s, votable_id: @votable.id, score: @votable.total_score, voted: true }
   end
 
   def vote_down
-    @votable.vote_down(current_user) unless check_author
+    @votable.vote_down(current_user)
     render json: { model: model_klass.to_s, votable_id: @votable.id, score: @votable.total_score, voted: true }
   end
 
@@ -28,9 +28,6 @@ module Voted
 
   def find_votable
     @votable = model_klass.find(params[:id])
-  end
-
-  def check_author
-    @votable.user_id == current_user.id
+    authorize! action_name.to_sym, @votable
   end
 end

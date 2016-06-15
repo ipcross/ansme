@@ -1,11 +1,12 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :edit, :update, :destroy]
-  before_action :load_owner, only: [:destroy]
   before_action :build_answer, only: :show
   after_action :publish_question, only: :create
 
   include Voted
+
+  authorize_resource
 
   respond_to :js, only: [:update]
 
@@ -49,10 +50,6 @@ class QuestionsController < ApplicationController
 
   def load_question
     @question = Question.find(params[:id])
-  end
-
-  def load_owner
-    redirect_to @question if @question.user != current_user
   end
 
   def question_params
