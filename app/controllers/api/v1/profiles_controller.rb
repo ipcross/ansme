@@ -1,12 +1,8 @@
 module Api
   module V1
-    class ProfilesController < ApplicationController
-      skip_authorization_check
-
-      before_action :doorkeeper_authorize!
+    class ProfilesController < Api::V1::BaseController
       before_action :except_current_user, only: :index
-
-      respond_to :json
+      authorize_resource class: User
 
       def me
         respond_with current_resource_owner
@@ -20,10 +16,6 @@ module Api
 
       def except_current_user
         @profiles = User.where.not(id: current_resource_owner.id)
-      end
-
-      def current_resource_owner
-        @current_resource_owner ||= User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
       end
     end
   end
