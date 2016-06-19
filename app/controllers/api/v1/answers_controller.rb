@@ -1,7 +1,7 @@
 module Api
   module V1
     class AnswersController < Api::V1::BaseController
-      before_action :load_question, only: [:index]
+      before_action :load_question, only: [:index, :create]
       before_action :load_answer, only: [:show]
 
       authorize_resource class: Answer
@@ -15,6 +15,13 @@ module Api
         respond_with @answer
       end
 
+      def create
+        @answer = @question.answers.new(answer_params)
+        @answer.user = current_resource_owner
+        @answer.save
+        respond_with(@answer)
+      end
+
       private
 
       def load_question
@@ -23,6 +30,10 @@ module Api
 
       def load_answer
         @answer = Answer.find(params[:id])
+      end
+
+      def answer_params
+        params.require(:answer).permit(:body)
       end
     end
   end
