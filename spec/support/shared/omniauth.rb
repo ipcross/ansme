@@ -1,7 +1,7 @@
 shared_examples_for "Omniauthable" do
   context 'email not returned' do
     before do
-      do_request(info: {email: nil})
+      do_request(info: { email: nil })
     end
 
     it 'stores data in session' do
@@ -26,7 +26,7 @@ shared_examples_for "Omniauthable" do
   context 'found user without authorization' do
     before do
       user
-      do_request(info: {email: user.email})
+      do_request(info: { email: user.email })
     end
 
     it 'assigns user to @user' do
@@ -38,7 +38,7 @@ shared_examples_for "Omniauthable" do
   context 'found user with authorization' do
     let(:auth) { create(:authorization, provider: provider, user: user) }
     before do
-      do_request(provider: auth.provider, uid: auth.uid, info: {email: user.email})
+      do_request(provider: auth.provider, uid: auth.uid, info: { email: user.email })
     end
 
     it 'assigns user to @user' do

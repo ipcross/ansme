@@ -37,4 +37,11 @@ RSpec.describe Answer, type: :model do
       expect(answer2.best).to be false
     end
   end
+
+  it_behaves_like "votable" do
+    let(:user) { create(:user) }
+    let(:user2) { create(:user) }
+    let(:question) { create(:question, user: user) }
+    let!(:votable) { create(:answer, question: question, user: user2) }
+  end
 end

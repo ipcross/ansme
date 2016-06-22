@@ -6,19 +6,19 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
 
   describe 'GET #facebook' do
     it_behaves_like "Omniauthable" do
-      let(:provider){ 'facebook' }
+      let(:provider) { 'facebook' }
     end
   end
 
   describe 'GET #vkontakte' do
     it_behaves_like "Omniauthable" do
-      let(:provider){ 'vkontakte' }
+      let(:provider) { 'vkontakte' }
     end
   end
 
   describe 'GET #twitter' do
     it_behaves_like "Omniauthable" do
-      let(:provider){ 'twitter' }
+      let(:provider) { 'twitter' }
     end
   end
 end
