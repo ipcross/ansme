@@ -14,4 +14,9 @@ RSpec.describe Question, type: :model do
     it { should validate_presence_of(:body) }
     it { should validate_presence_of :user_id }
   end
+  it_behaves_like "votable" do
+    let(:user) { create(:user) }
+    let(:user2) { create(:user) }
+    let!(:votable) { create(:question, user: user2) }
+  end
 end
