@@ -1,6 +1,12 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   use_doorkeeper
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+
+  authenticate :user, -> (u) { u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   concern :votable do
     member  do
