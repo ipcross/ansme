@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'shoulda_matchers_helper'
 require 'rspec/rails'
 require 'capybara/poltergeist'
+require 'capybara/email/rspec'
 require 'cancan/matchers'
 require 'sidekiq/testing'
 

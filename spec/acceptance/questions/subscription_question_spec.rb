@@ -14,8 +14,7 @@ feature 'Subscription to question' do
     scenario 'subscribes to question', js: true do
       within '.question' do
         click_on 'Subscribe'
-
-        expect(page).to have_button('Unsubscribe')
+        expect(page).to have_link('Unsubscribe')
       end
     end
 
@@ -23,8 +22,7 @@ feature 'Subscription to question' do
       within '.question' do
         click_on 'Subscribe'
         click_on 'Unsubscribe'
-
-        expect(page).to have_button('Subscribe')
+        expect(page).to have_link('Subscribe')
       end
     end
 
@@ -35,6 +33,7 @@ feature 'Subscription to question' do
       sleep(1)
       open_email(user.email)
       expect(current_email).to have_content 'My answer'
+      current_email.save_and_open
     end
   end
 

@@ -69,6 +69,7 @@ group :test do
   gem 'codeclimate-test-reporter'
   gem 'capybara'
   gem 'capybara-webkit'
+  gem 'capybara-email'
   gem 'poltergeist'
   gem 'launchy'
   gem 'database_cleaner'
