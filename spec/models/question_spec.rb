@@ -15,6 +15,13 @@ RSpec.describe Question, type: :model do
     it { should validate_presence_of(:body) }
     it { should validate_presence_of :user_id }
   end
+  describe 'autosubscribe_for_own' do
+    let(:user) { create(:user) }
+    it 'subscribes own to question' do
+      question = Question.new(title: 'title', body: 'body', user: user)
+      expect { question.save! }.to change(user.subscriptions, :count).by(1)
+    end
+  end
   it_behaves_like "votable" do
     let(:user) { create(:user) }
     let(:user2) { create(:user) }

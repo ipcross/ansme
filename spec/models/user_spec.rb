@@ -88,4 +88,34 @@ RSpec.describe User do
       User.send_daily_digest
     end
   end
+
+  describe 'subscription methods' do
+    let(:user) { create(:user) }
+    let(:user2) { create(:user) }
+    let!(:question) { create(:question, user: user2) }
+
+    describe 'subscribe!' do
+      it 'creates subscription to question' do
+        expect { user.subscribe!(question.id) }.to change(user.subscriptions, :count).by(1)
+      end
+    end
+
+    describe 'unsubscribe!' do
+      it 'deletes subscription to question' do
+        create(:subscription, question: question, user: user)
+        expect { user.unsubscribe!(question.id) }.to change(Subscription, :count).by(-1)
+      end
+    end
+
+    describe 'subscribed?' do
+      it 'returns true if user subscribed to question' do
+        create(:subscription, question: question, user: user)
+        expect(user).to be_subscribed(question)
+      end
+
+      it 'returns false if user dont subscribed to question' do
+        expect(user).to_not be_subscribed(question)
+      end
+    end
+  end
 end
