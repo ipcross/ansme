@@ -33,7 +33,7 @@ feature 'Subscription to question' do
       sleep(1)
       open_email(user.email)
       expect(current_email).to have_content 'My answer'
-      current_email.save_and_open
+      # current_email.save_and_open
     end
   end
 

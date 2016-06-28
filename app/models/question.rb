@@ -1,6 +1,7 @@
 class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   has_many :subscriptions, dependent: :destroy
+  has_many :users, through: :subscriptions
   belongs_to :user
 
   include Attachable
