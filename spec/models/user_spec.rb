@@ -82,6 +82,8 @@ RSpec.describe User do
   describe '.send_daily_digest' do
     let!(:users) { create_list(:user, 2) }
     let!(:questions) { create_list(:question, 2, user: users.first, created_at: (Time.now - 1.day)) }
+    let!(:question1) { create(:question, user: users.first, title: 'Question created today') }
+    let!(:question2) { create(:question, user: users.first, title: 'Question created month ago', created_at: (Time.now - 30.day)) }
 
     it 'should send daily digest to all users' do
       users.each { |user| expect(DailyMailer).to receive(:digest).with(user, questions).and_call_original }
@@ -91,6 +93,8 @@ RSpec.describe User do
       User.send_daily_digest
       open_email(users.first.email)
       expect(current_email).to have_content 'Yesterday list of questions'
+      expect(current_email).to_not have_content 'Question created today'
+      expect(current_email).to_not have_content 'Question created month ago'
       # current_email.save_and_open
     end
   end
