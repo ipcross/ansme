@@ -7,7 +7,11 @@ require 'spec_helper'
 require 'shoulda_matchers_helper'
 require 'rspec/rails'
 require 'capybara/poltergeist'
+require 'capybara/email/rspec'
 require 'cancan/matchers'
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
 
 require "codeclimate-test-reporter"
 CodeClimate::TestReporter.start
@@ -36,6 +40,7 @@ ActiveRecord::Migration.maintain_test_schema!
 OmniAuth.config.test_mode = true
 
 RSpec.configure do |config|
+  config.include Capybara::Email::DSL
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
   config.extend ControllerMacros, type: :controller

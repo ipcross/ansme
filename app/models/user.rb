@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :votes
   has_many :comments
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   def self.find_for_oauth(auth)
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
@@ -27,7 +28,29 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.send_daily_digest
+    questions = Question.where(created_at: Time.now.yesterday.all_day)
+
+    if questions.present?
+      find_each.each do |user|
+        DailyMailer.delay.digest(user, questions)
+      end
+    end
+  end
+
   def create_auth(auth)
     authorizations.create(provider: auth.provider, uid: auth.uid)
+  end
+
+  def subscribe!(question_id)
+    subscriptions.create!(question_id: question_id) unless subscribed?(question_id)
+  end
+
+  def unsubscribe!(question_id)
+    subscriptions.find_by(question_id: question_id).destroy! if subscribed?(question_id)
+  end
+
+  def subscribed?(question_id)
+    subscriptions.find_by(question_id: question_id)
   end
 end

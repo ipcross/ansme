@@ -44,6 +44,9 @@ gem 'doorkeeper'
 gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
+gem 'whenever'
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', require: nil
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -66,6 +69,7 @@ group :test do
   gem 'codeclimate-test-reporter'
   gem 'capybara'
   gem 'capybara-webkit'
+  gem 'capybara-email'
   gem 'poltergeist'
   gem 'launchy'
   gem 'database_cleaner'

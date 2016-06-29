@@ -6,6 +6,7 @@ RSpec.describe User do
     it { should have_many(:answers).dependent(:destroy) }
     it { should have_many(:votes) }
     it { should have_many(:authorizations).dependent(:destroy) }
+    it { should have_many(:subscriptions).dependent(:destroy) }
   end
 
   context "Validations" do
@@ -74,6 +75,56 @@ RSpec.describe User do
           expect(authorization.provider).to eq auth.provider
           expect(authorization.uid).to eq auth.uid
         end
+      end
+    end
+  end
+
+  describe '.send_daily_digest' do
+    let!(:users) { create_list(:user, 2) }
+    let!(:questions) { create_list(:question, 2, user: users.first, created_at: (Time.now - 1.day)) }
+    let!(:question1) { create(:question, user: users.first, title: 'Question created today') }
+    let!(:question2) { create(:question, user: users.first, title: 'Question created month ago', created_at: (Time.now - 30.day)) }
+
+    it 'should send daily digest to all users' do
+      users.each { |user| expect(DailyMailer).to receive(:digest).with(user, questions).and_call_original }
+      User.send_daily_digest
+    end
+    it 'receives email with digest' do
+      User.send_daily_digest
+      open_email(users.first.email)
+      expect(current_email).to have_content 'Yesterday list of questions'
+      expect(current_email).to_not have_content 'Question created today'
+      expect(current_email).to_not have_content 'Question created month ago'
+      # current_email.save_and_open
+    end
+  end
+
+  describe 'subscription methods' do
+    let(:user) { create(:user) }
+    let(:user2) { create(:user) }
+    let!(:question) { create(:question, user: user2) }
+
+    describe 'subscribe!' do
+      it 'creates subscription to question' do
+        expect { user.subscribe!(question.id) }.to change(user.subscriptions, :count).by(1)
+      end
+    end
+
+    describe 'unsubscribe!' do
+      it 'deletes subscription to question' do
+        create(:subscription, question: question, user: user)
+        expect { user.unsubscribe!(question.id) }.to change(Subscription, :count).by(-1)
+      end
+    end
+
+    describe 'subscribed?' do
+      it 'returns true if user subscribed to question' do
+        create(:subscription, question: question, user: user)
+        expect(user).to be_subscribed(question)
+      end
+
+      it 'returns false if user dont subscribed to question' do
+        expect(user).to_not be_subscribed(question)
       end
     end
   end

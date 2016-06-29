@@ -1,0 +1,6 @@
+h3 Hello,
+  = @user.email
+
+h2 Yesterday list of questions:
+- @questions.each do |question|
+  = link_to question.title, question_path(question)
