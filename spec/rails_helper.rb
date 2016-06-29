@@ -40,6 +40,7 @@ ActiveRecord::Migration.maintain_test_schema!
 OmniAuth.config.test_mode = true
 
 RSpec.configure do |config|
+  config.include Capybara::Email::DSL
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
   config.extend ControllerMacros, type: :controller

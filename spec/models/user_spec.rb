@@ -87,6 +87,12 @@ RSpec.describe User do
       users.each { |user| expect(DailyMailer).to receive(:digest).with(user, questions).and_call_original }
       User.send_daily_digest
     end
+    it 'receives email with digest' do
+      User.send_daily_digest
+      open_email(users.first.email)
+      expect(current_email).to have_content 'Yesterday list of questions'
+      # current_email.save_and_open
+    end
   end
 
   describe 'subscription methods' do
