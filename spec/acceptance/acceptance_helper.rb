@@ -12,10 +12,6 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :poltergeist_debug
 
   config.include AcceptanceMacros, type: :feature
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = false
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

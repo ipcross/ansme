@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :search, only: [:index]
+
   resources :authorizations, only: [:new, :create]
 
   resources :questions, concerns: :votable do
