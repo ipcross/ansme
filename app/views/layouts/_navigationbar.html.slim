@@ -32,9 +32,10 @@ nav.navbar.navbar-inverse.navbar-fixed-top[role="navigation"]
               li
                 a[href="#"]
                   | Separated link
-      form.navbar-form.navbar-left[role="search"]
-        .form-group
-          input.form-control[type="text" placeholder="Search"]
+      = form_tag search_index_path, method: :get, class: 'navbar-form navbar-left' do
+        = text_field_tag 'content', params[:content], type: 'search', placeholder: 'Search', class: 'form-control'
+        = select_tag 'context', options_for_select(Search::FILTER, params[:context]), class: 'form-control'
+        = submit_tag 'Search', class: 'form-control'
       ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           li

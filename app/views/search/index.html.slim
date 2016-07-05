@@ -1,0 +1,7 @@
+- if @result.blank?
+  h2 Results not found.
+- else
+  h2
+    | Results:
+    - @result.each do |object|
+      = render "search/#{object.class.name.underscore}", object: object

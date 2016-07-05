@@ -27,3 +27,6 @@ public/uploads/
 *.swp
 .byebug_history
 .fuse_hidden*
+dump.rdb
+config/*.sphinx.conf
+db/sphinx
