@@ -13,6 +13,8 @@ RSpec.configure do |config|
 
   config.include AcceptanceMacros, type: :feature
 
+  config.use_transactional_fixtures = false
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
@@ -22,6 +24,11 @@ RSpec.configure do |config|
   end
 
   config.before(:each, js: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  # Sphinx
+  config.before(:each, type: :sphinx) do
     DatabaseCleaner.strategy = :truncation
   end
 
