@@ -18,4 +18,8 @@ every 1.day, at: '8am' do
   runner "User.send_daily_email"
 end
 
+every 60.minutes do
+  rake "ts:index"
+end
+
 # Learn more: http://github.com/javan/whenever
