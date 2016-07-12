@@ -1,8 +1,9 @@
 - if comment.persisted?
-  .comment.panel.panel-info
-    .panel-heading
-      .panel-title
-        = comment.user.email
-        |  
-        = comment.created_at.strftime('%F')
-    .panel-body = comment.body
+  - cache comment do
+    .comment.panel.panel-info
+      .panel-heading
+        .panel-title
+          = comment.user.email
+          |
+          = comment.created_at.strftime('%F')
+      .panel-body = comment.body

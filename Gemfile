@@ -53,6 +53,7 @@ gem 'dotenv'
 gem 'dotenv-deployment', require: 'dotenv/deployment'
 gem 'therubyracer'
 gem 'unicorn'
+gem 'redis-rails'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
