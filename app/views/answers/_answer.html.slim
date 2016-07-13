@@ -1,4 +1,4 @@
-- cache answer do
+- cache [answer, current_user] do
   tr id="answer-#{ answer.id }" class="answer #{ answer.best ? 'info' : '' }"
     td.vote
       = render 'answers/vote', answer: answer, voted: answer.voted_by?(current_user)
