@@ -1,15 +1,16 @@
-div class='panel panel-info'
-  div class='panel-heading'
-    | List all questions.
-  table.table.table-striped.table-bordered.table-condensed
-    head
-      tr
-        th
-          | Title
-        th
-          | Body
-        th.actioncell
-    body
-      - @questions.each do |question|
-        = render "question", question: question
-      =subscribe_to "/questions"
+- cache collection_cache_key_for :question do
+  div class='panel panel-info'
+    div class='panel-heading'
+      | List all questions.
+    table.table.table-striped.table-bordered.table-condensed
+      head
+        tr
+          th
+            | Title
+          th
+            | Body
+          th.actioncell
+      body
+        - @questions.each do |question|
+          = render "question", question: question
+=subscribe_to "/questions"

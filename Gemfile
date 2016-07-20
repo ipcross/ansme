@@ -50,9 +50,10 @@ gem 'sinatra', '>= 1.3.0', require: nil
 gem 'mysql2'
 gem 'thinking-sphinx'
 gem 'dotenv'
-gem 'dotenv-deployment', require: 'dotenv/deployment'
+gem 'dotenv-rails', require: 'dotenv/rails'
 gem 'therubyracer'
 gem 'unicorn'
+gem 'redis-rails'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

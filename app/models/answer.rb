@@ -14,7 +14,7 @@ class Answer < ActiveRecord::Base
 
   def set_best!
     transaction do
-      question.answers.update_all(best: false)
+      question.answers.update_all(best: false, updated_at: Time.now)
       update!(best: true)
     end
   end
